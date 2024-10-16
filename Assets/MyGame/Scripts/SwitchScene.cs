@@ -5,7 +5,8 @@ public enum GameScenes
 {
     ModiDesktop,
     PlayerInfoDesktop,
-    NetworkConnectInfoDesktop
+    NetworkConnectInfoDesktop,
+    TestScene
 }
 
 public class SwitchScene : MonoBehaviour

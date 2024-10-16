@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public enum ColorRGB
 {
@@ -9,29 +10,57 @@ public enum ColorRGB
     Blue,
 }
 
+public enum TaskToDo
+{
+    Bear,
+    Cat,
+    Owl,
+    One,
+    Two,
+    Three,
+    None
+}
+
 public class MixObjectColor : MonoBehaviour
 {
+    private Color32[] taskColors = new Color32[]
+    {
+        new Color32(253, 196, 4, 255), //fdch04 gelb bear
+        new Color32(90, 160, 216, 255), //5aa0d8 blau cat
+        new Color32(0, 167, 102, 255), //00a766 grï¿½n owl
+        new Color32(217, 75, 50, 255), //d94b32 rot one
+        new Color32(186, 198, 52, 255), //bac634 lime two
+        new Color32(147, 114, 177, 255), //fdch04 lila three
+        new Color32(0, 0, 0, 255), //000000 black None
+    };
+
     private Material objMaterial;
+    [SerializeField] private PepperOnlyManager pepperManager;
     [SerializeField] private GameObject kuebelObject;
     [SerializeField] private Liquid red, blue, green;
     [SerializeField] private ParticleSystem redParticleSystem, blueParticleSystem, greenParticleSystem;
+    [SerializeField] private GameObject taskPoints;
     private ParticleSystem currentParticleSystem;
 
-    // Werte für den Eingangsbereich
-    private float inputMin = -0.34f;  // Voll
-    private float inputMax = 1.63f;   // Leer
+    // Werte fï¿½r den Eingangsbereich
+    private float inputMarkerFull = -0.34f;  // Voll
+    private float inputMarkerEmpty = 1.63f;   // Leer
 
     [SerializeField] private float stepSize;
 
-    // Werte für den Ausgangsbereich
-    private float outputMin = 255f;   // Voll
-    private float outputMax = 0f;     // Leer
+    // Werte fï¿½r den Ausgangsbereich
+    private float outputMarkerFull = 255f;   // Voll
+    private float outputMarkerEmpty = 0f;     // Leer
 
     private Color32 mixedColor;
+
+    private TaskToDo currentTask = TaskToDo.None;
+    [SerializeField] private GameObject taskInputCanvas;
 
     // Start is called before the first frame update
     private void Start()
     {
+        pepperManager = GameObject.FindObjectOfType<PepperOnlyManager>();
         objMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         mixedColor = new Color32(0, 0, 0,255);
         objMaterial.color = mixedColor;
@@ -41,31 +70,38 @@ public class MixObjectColor : MonoBehaviour
         blueParticleSystem.Stop();
         greenParticleSystem.Stop();
 
-        red.fillAmount = inputMin;
-        blue.fillAmount = inputMin;
-        green.fillAmount = inputMin;
+        red.fillAmount = inputMarkerFull;
+        blue.fillAmount = inputMarkerFull;
+        green.fillAmount = inputMarkerFull;
+
+        taskInputCanvas.SetActive(true);
     }
 
     public void StartParticles(ColorRGB color)
     {
+        Debug.Log("Start Particles!!!!");
         switch (color)
         {
-            case ColorRGB.Red: 
+            case ColorRGB.Red:
+                if (PipeEmpty(ColorRGB.Red)) return;
                 currentParticleSystem = redParticleSystem;
                 break;
             case ColorRGB.Blue:
+                if (PipeEmpty(ColorRGB.Blue)) return;
                 currentParticleSystem = blueParticleSystem;
                 break;
             case ColorRGB.Green:
+                if (PipeEmpty(ColorRGB.Green)) return;
                 currentParticleSystem = greenParticleSystem;
                 break;
         }
-        
-        if (!currentParticleSystem.isPlaying)
+
+        if (currentParticleSystem.isPlaying)
         {
-            currentParticleSystem.Play();
-            Debug.Log("Partikel gestartet");
+            currentParticleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
+
+        currentParticleSystem.Play();
     }
 
     public void StopParticles()
@@ -75,6 +111,7 @@ public class MixObjectColor : MonoBehaviour
         if (currentParticleSystem.isPlaying)
         {
             currentParticleSystem.Stop();
+            currentParticleSystem.Clear();
         }
     }
     private byte GetByte(byte channelByte)
@@ -82,6 +119,22 @@ public class MixObjectColor : MonoBehaviour
         int result = 255 - channelByte;
         result = Mathf.Clamp(result, 0, 255);
         return (byte)result;
+    }
+
+    public bool PipeEmpty(ColorRGB pipe)
+    {
+        switch (pipe)
+        {
+            case ColorRGB.Red:
+                return red.fillAmount >= inputMarkerEmpty;
+            case ColorRGB.Green:
+                return green.fillAmount >= inputMarkerEmpty;
+            case ColorRGB.Blue:
+                return blue.fillAmount >= inputMarkerEmpty;
+            default:
+                return false;
+        }
+        
     }
 
     public void DecreaseFillState(ColorRGB color)
@@ -94,7 +147,7 @@ public class MixObjectColor : MonoBehaviour
         switch (color)
         {
             case ColorRGB.Red:
-                if(red.fillAmount <= inputMax)
+                if(red.fillAmount <= inputMarkerEmpty)
                 {
                     Debug.Log("in REd");
                     red.fillAmount += stepSize;
@@ -104,7 +157,7 @@ public class MixObjectColor : MonoBehaviour
                 }
                 break;
             case ColorRGB.Blue:
-                if (blue.fillAmount <= inputMax)
+                if (blue.fillAmount <= inputMarkerEmpty)
                 {
                     Debug.Log("in Blue");
                     blue.fillAmount += stepSize;
@@ -114,7 +167,7 @@ public class MixObjectColor : MonoBehaviour
                 }
                 break;
             case ColorRGB.Green:
-                if (green.fillAmount <= inputMax)
+                if (green.fillAmount <= inputMarkerEmpty)
                 {
                     Debug.Log("in Green");
                     green.fillAmount += stepSize;
@@ -132,12 +185,111 @@ public class MixObjectColor : MonoBehaviour
 
     public float MapRange(float inputValue)
     {
-        return outputMin + (inputValue - inputMin) * (outputMax - outputMin) / (inputMax - inputMin);
+        return outputMarkerFull + (inputValue - inputMarkerFull) * (outputMarkerEmpty - outputMarkerFull) / (inputMarkerEmpty - inputMarkerFull);
     }
 
+    private void Update()
+    {
+        if (redParticleSystem.isPlaying && PipeEmpty(ColorRGB.Red)) redParticleSystem.Stop();
+        if (greenParticleSystem.isPlaying && PipeEmpty(ColorRGB.Green)) greenParticleSystem.Stop();
+        if (blueParticleSystem.isPlaying && PipeEmpty(ColorRGB.Blue)) blueParticleSystem.Stop();
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            EvaluatePoints();
+            mixedColor = taskColors[(int)TaskToDo.None];
+            objMaterial.color = mixedColor;
+            red.fillAmount = blue.fillAmount = green.fillAmount = inputMarkerFull;
+            Debug.Log("RESET PIPES");
+            pepperManager.EnableTaskCanvas();
+            taskInputCanvas.SetActive(true);
+           
+        }
+    }
 
+    public void EnableTaskCanvas()
+    {
+        taskInputCanvas.SetActive(true);
 
+    }
 
+    public float CalculateColorDistance(Color32 color1, Color32 color2)
+    {
+        // Differenzen der Farbkanï¿½le
+        int rDifference = color2.r - color1.r;
+        int gDifference = color2.g - color1.g;
+        int bDifference = color2.b - color1.b;
+
+        // Euklidische Distanz berechnen
+        float distance = Mathf.Sqrt(rDifference * rDifference + gDifference * gDifference + bDifference * bDifference);
+
+        return distance;
+    }
+
+    private int CalculatePoints(float euclidDistance)
+    {
+        int points = 0;
+
+        //Die Farben sind komplett identisch.
+        if (euclidDistance >=0 && euclidDistance <= 10)
+        {
+            points = 5;
+        }
+        //ï¿½hnlich, fast nicht zu unterscheiden.
+        else if (euclidDistance >= 11 && euclidDistance <= 40)
+        {
+            points = 4;
+        }
+        //ï¿½hnlich, aber erkennbar unterschiedlich
+        else if (euclidDistance >= 41 && euclidDistance <= 100)
+        {
+            points = 3;
+        }
+        //Ziemlich unterschiedlich
+        else if (euclidDistance >= 101 && euclidDistance <= 200)
+        {
+            points = 2;
+        }
+        //Maximal unterschiedlich, maximale Distanz von etwa 441.67
+        else if (euclidDistance >= 201)
+        {
+            points = 1;
+        }
+
+        return points;
+    }
+
+    private void EvaluatePoints()
+    {
+        float distance = -1f;
+
+        switch (currentTask)
+        {
+            case TaskToDo.Bear:
+                distance = CalculateColorDistance(taskColors[(int)TaskToDo.Bear], mixedColor);
+                break;
+            case TaskToDo.Cat:
+                break;
+            case TaskToDo.Owl:
+                break;
+            case TaskToDo.One:
+                break;
+            case TaskToDo.Two:
+                break;
+            case TaskToDo.Three:
+                break;
+        }
+
+        pepperManager.currentSession.points += CalculatePoints(distance);
+        
+        
+    }
+
+    public void SetTask(int task) 
+    {
+        currentTask = (TaskToDo)task;
+        taskInputCanvas.SetActive(false);
+    }
 
 
 }
