@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEngine;
 
 public enum PlayMode
 {
     Koopterative,
-    VOOnly,
-    PepperOnly
+    VROnly,
+    PepperOnly,
+    None
 }
 
 public class Session
@@ -18,11 +20,58 @@ public class Session
     public int points;
     public PlayMode mode;
 
+    private int[] pointsPerRound;
+    private int currentRound = -1;
+
+    public void SetFirstRound()
+    {
+        currentRound = 0;
+    }
+
+
+
+    public void SetPlayername(string pname)
+    {
+        playerName = pname;
+    }
+    public void SetPointsRound(int round, int points)
+    {
+        pointsPerRound[currentRound] = points;
+    }
+
+    public int GetCurrentRound()
+    {
+        return currentRound;
+    }
+
+    public void IncreaseRound()
+    {
+        currentRound++;
+    }
+
     // Methode zum Speichern der Session in einer Textdatei
     public void SaveSessionToFile(string filePath)
     {
         string sessionData = playerName + "," + "," + zeitstempel + "," + points+"," + mode.ToString();
         File.AppendAllText(filePath, sessionData + Environment.NewLine);
+    }
+
+    public void ResetPoints()
+    {
+        for(int i = 0; i < pointsPerRound.Length; i++)
+        {
+            pointsPerRound[i] = -1;
+        }
+    }
+
+    public bool IsRoundUnplayed(int round)
+    {
+        if (round < 0 || round >= pointsPerRound.Length)
+        {
+            Debug.LogError("no such round available!" + round);
+        }
+
+        return pointsPerRound[round] != -1;
     }
 
     public Session(string name, string zeit, int punkte, PlayMode modus)
@@ -63,6 +112,11 @@ public class Session
         }
 
         return sessions;
+    }
+
+    public void EnableEndScreen()
+    {
+
     }
 
     // Methode zum Anzeigen der Rangliste

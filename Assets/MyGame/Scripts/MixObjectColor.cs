@@ -27,7 +27,7 @@ public class MixObjectColor : MonoBehaviour
     {
         new Color32(253, 196, 4, 255), //fdch04 gelb bear
         new Color32(90, 160, 216, 255), //5aa0d8 blau cat
-        new Color32(0, 167, 102, 255), //00a766 gr�n owl
+        new Color32(0, 167, 102, 255), //00a766 grün owl
         new Color32(217, 75, 50, 255), //d94b32 rot one
         new Color32(186, 198, 52, 255), //bac634 lime two
         new Color32(147, 114, 177, 255), //fdch04 lila three
@@ -48,7 +48,7 @@ public class MixObjectColor : MonoBehaviour
 
     [SerializeField] private float stepSize;
 
-    // Werte f�r den Ausgangsbereich
+    // Werte für den Ausgangsbereich
     private float outputMarkerFull = 255f;   // Voll
     private float outputMarkerEmpty = 0f;     // Leer
 
@@ -196,14 +196,13 @@ public class MixObjectColor : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            EvaluatePoints();
+            //EvaluatePoints();
             mixedColor = taskColors[(int)TaskToDo.None];
             objMaterial.color = mixedColor;
             red.fillAmount = blue.fillAmount = green.fillAmount = inputMarkerFull;
-            Debug.Log("RESET PIPES");
-            pepperManager.EnableTaskCanvas();
-            taskInputCanvas.SetActive(true);
-           
+            //Debug.Log("RESET PIPES");
+            //pepperManager.EnableTaskCanvas();
+            //taskInputCanvas.SetActive(true);
         }
     }
 
@@ -259,11 +258,11 @@ public class MixObjectColor : MonoBehaviour
         return points;
     }
 
-    private void EvaluatePoints()
+    public float EvaluatePoints(TaskToDo cTask)
     {
         float distance = -1f;
 
-        switch (currentTask)
+        switch (cTask)
         {
             case TaskToDo.Bear:
                 distance = CalculateColorDistance(taskColors[(int)TaskToDo.Bear], mixedColor);
@@ -280,9 +279,8 @@ public class MixObjectColor : MonoBehaviour
                 break;
         }
 
-        pepperManager.currentSession.points += CalculatePoints(distance);
-        
-        
+        return distance;
+        //pepperManager.currentSession.SetPointsRound(pepperManager.currentSession.GetCurrentRound(), CalculatePoints(distance));
     }
 
     public void SetTask(int task) 
