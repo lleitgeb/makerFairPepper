@@ -10,17 +10,6 @@ public enum ColorRGB
     Blue,
 }
 
-public enum TaskToDo
-{
-    Bear,
-    Cat,
-    Owl,
-    One,
-    Two,
-    Three,
-    None
-}
-
 public class MixObjectColor : MonoBehaviour
 {
     private Color32[] taskColors = new Color32[]
@@ -42,7 +31,7 @@ public class MixObjectColor : MonoBehaviour
     [SerializeField] private GameObject taskPoints;
     private ParticleSystem currentParticleSystem;
 
-    // Werte f�r den Eingangsbereich
+    // Werte für den Eingangsbereich
     private float inputMarkerFull = -0.34f;  // Voll
     private float inputMarkerEmpty = 1.63f;   // Leer
 
@@ -212,76 +201,8 @@ public class MixObjectColor : MonoBehaviour
 
     }
 
-    public float CalculateColorDistance(Color32 color1, Color32 color2)
-    {
-        // Differenzen der Farbkan�le
-        int rDifference = color2.r - color1.r;
-        int gDifference = color2.g - color1.g;
-        int bDifference = color2.b - color1.b;
 
-        // Euklidische Distanz berechnen
-        float distance = Mathf.Sqrt(rDifference * rDifference + gDifference * gDifference + bDifference * bDifference);
-
-        return distance;
-    }
-
-    private int CalculatePoints(float euclidDistance)
-    {
-        int points = 0;
-
-        //Die Farben sind komplett identisch.
-        if (euclidDistance >=0 && euclidDistance <= 10)
-        {
-            points = 5;
-        }
-        //�hnlich, fast nicht zu unterscheiden.
-        else if (euclidDistance >= 11 && euclidDistance <= 40)
-        {
-            points = 4;
-        }
-        //�hnlich, aber erkennbar unterschiedlich
-        else if (euclidDistance >= 41 && euclidDistance <= 100)
-        {
-            points = 3;
-        }
-        //Ziemlich unterschiedlich
-        else if (euclidDistance >= 101 && euclidDistance <= 200)
-        {
-            points = 2;
-        }
-        //Maximal unterschiedlich, maximale Distanz von etwa 441.67
-        else if (euclidDistance >= 201)
-        {
-            points = 1;
-        }
-
-        return points;
-    }
-
-    public float EvaluatePoints(TaskToDo cTask)
-    {
-        float distance = -1f;
-
-        switch (cTask)
-        {
-            case TaskToDo.Bear:
-                distance = CalculateColorDistance(taskColors[(int)TaskToDo.Bear], mixedColor);
-                break;
-            case TaskToDo.Cat:
-                break;
-            case TaskToDo.Owl:
-                break;
-            case TaskToDo.One:
-                break;
-            case TaskToDo.Two:
-                break;
-            case TaskToDo.Three:
-                break;
-        }
-
-        return distance;
-        //pepperManager.currentSession.SetPointsRound(pepperManager.currentSession.GetCurrentRound(), CalculatePoints(distance));
-    }
+  
 
     public void SetTask(int task) 
     {

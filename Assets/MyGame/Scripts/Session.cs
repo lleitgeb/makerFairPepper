@@ -12,31 +12,50 @@ public enum PlayMode
     None
 }
 
-public class Session
+public class Session : MonoBehaviour
 {
-    public string playerName;
-
+    public string PlayerName { set; get; }
     public string zeitstempel;
-    public int points;
     public PlayMode mode;
 
-    private int[] pointsPerRound;
+    private PepperOnlyTask[] tasks;
+    private int maxRounds = 4;
     private int currentRound = -1;
+
+    public PepperOnlyTask GetRoundTask(int round)
+    {
+        return tasks[round];
+    }
+
+    // Nur get, kein set -> Wert kann nur gelesen werden
+    public int MaxRounds
+    {
+        get { return maxRounds; }
+    }
+
+    public Session(string name, string zeit, PlayMode modus)
+    {
+        PlayerName = name;
+        zeitstempel = zeit;
+        mode = modus;
+
+        tasks = GenerateTaskArray(maxRounds);
+    }
+
+    public int SumTaskResults()
+    {
+        int sum = 0;
+        foreach(PepperOnlyTask a in tasks)
+        {
+            if (a.Points == -1) break;
+            sum += a.Points;
+        }
+        return sum;
+    }
 
     public void SetFirstRound()
     {
         currentRound = 0;
-    }
-
-
-
-    public void SetPlayername(string pname)
-    {
-        playerName = pname;
-    }
-    public void SetPointsRound(int round, int points)
-    {
-        pointsPerRound[currentRound] = points;
     }
 
     public int GetCurrentRound()
@@ -52,41 +71,19 @@ public class Session
     // Methode zum Speichern der Session in einer Textdatei
     public void SaveSessionToFile(string filePath)
     {
-        string sessionData = playerName + "," + "," + zeitstempel + "," + points+"," + mode.ToString();
-        File.AppendAllText(filePath, sessionData + Environment.NewLine);
+        //string sessionData = playerName + "," + "," + zeitstempel + "," + points+"," + mode.ToString();
+        //File.AppendAllText(filePath, sessionData + Environment.NewLine);
     }
 
-    public void ResetPoints()
+    private PepperOnlyTask[] GenerateTaskArray(int maxRounds)
     {
-        for(int i = 0; i < pointsPerRound.Length; i++)
+        PepperOnlyTask[] tasks = new PepperOnlyTask[maxRounds];
+        for(int i = 0; i < tasks.Length; i++)
         {
-            pointsPerRound[i] = -1;
-        }
-    }
-
-    public bool IsRoundUnplayed(int round)
-    {
-        if (round < 0 || round >= pointsPerRound.Length)
-        {
-            Debug.LogError("no such round available!" + round);
+            tasks[i] = new PepperOnlyTask();
         }
 
-        return pointsPerRound[round] != -1;
-    }
-
-    public Session(string name, string zeit, int punkte, PlayMode modus)
-    {
-        playerName = name;
-        zeitstempel = zeit;
-        points = punkte;
-        mode = modus;
-    }
-
-    public Session(string name, string zeit, PlayMode modus)
-    {
-        playerName = name;
-        zeitstempel = zeit;
-        mode = modus;
+        return tasks;
     }
 
     // Methode zum Laden der Sessions aus einer Datei und Rückgabe einer Liste von Sessions
@@ -108,7 +105,7 @@ public class Session
             // Konvertiere den Modus-String zurück in ein Enum
             PlayMode modus = (PlayMode)Enum.Parse(typeof(PlayMode), parts[3]);
 
-            sessions.Add(new Session(name, zeit, punkte, modus));
+            sessions.Add(new Session(name, zeit, modus));
         }
 
         return sessions;
@@ -120,17 +117,17 @@ public class Session
     }
 
     // Methode zum Anzeigen der Rangliste
-    public static void DisplayRangliste(List<Session> sessions)
-    {
-        // Sortiere die Liste basierend auf den Punkten (absteigend)
-        var sortedSessions = sessions.OrderByDescending(s => s.points).ToList();
+    //public static void DisplayRangliste(List<Session> sessions)
+    //{
+    //    // Sortiere die Liste basierend auf den Punkten (absteigend)
+    //    var sortedSessions = sessions.OrderByDescending(s => s.points).ToList();
 
-        // Zeige die Rangliste an
-        Console.WriteLine("Rangliste:");
-        for (int i = 0; i < sortedSessions.Count; i++)
-        {
-            Session s = sortedSessions[i];
-            Console.WriteLine($"{i + 1}. {s.playerName} - {s.points} Punkte ({s.zeitstempel}, Modus: {s.mode})");
-        }
-    }
+    //    // Zeige die Rangliste an
+    //    Console.WriteLine("Rangliste:");
+    //    for (int i = 0; i < sortedSessions.Count; i++)
+    //    {
+    //        Session s = sortedSessions[i];
+    //        Console.WriteLine($"{i + 1}. {s.playerName} - {s.points} Punkte ({s.zeitstempel}, Modus: {s.mode})");
+    //    }
+    //}
 }

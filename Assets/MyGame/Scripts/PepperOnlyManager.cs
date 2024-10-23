@@ -21,7 +21,7 @@ public class PepperOnlyManager : MonoBehaviour
     private int round = 0;
 
 
-    public Session currentSession;
+    private Session currentSession;
 
     // Start is called before the first frame update
     private void Start()
@@ -43,14 +43,15 @@ public class PepperOnlyManager : MonoBehaviour
         DateTime currentDateTime = DateTime.Now;
         string customFormat = currentDateTime.ToString("yyyy-MM-dd-HH:mm:ss");
         
-        currentSession = new Session(playerNameWelcome.text, customFormat,PlayMode.PepperOnly);
-        ActivateScreen(auftrag.gameObject);
+        currentSession = new Session(playerNameWelcome.text, customFormat, PlayMode.PepperOnly);
         currentSession.SetFirstRound();
 
-        SetAllRoundsUnplayed();
+        ActivateScreen(auftrag.gameObject);
+
+        SetUIRoundsUnplayed();
 
         //UpdateUI in Welcome-Canvas
-        playerNameAuftrag.text = currentSession.playerName;
+        playerNameAuftrag.text = currentSession.PlayerName;
     }
 
     public bool IsPlayMode()
@@ -60,12 +61,25 @@ public class PepperOnlyManager : MonoBehaviour
 
     public void EnableTaskCanvas()
     {
-        playerNameAuftrag.text = currentSession.playerName;
-        taskPoints.text = currentSession.points.ToString();
-        ActivateScreen(auftrag.gameObject);
+        playerNameAuftrag.text = currentSession.PlayerName;
+        int currentRound = currentSession.GetCurrentRound();
+        if(currentRound <= currentSession.MaxRounds)
+        {
+            for (int i = 0; i <= currentRound; i++)
+            {
+                roundImgsAuftrag[i].color = Color.white;
+                roundPoints[i].text = currentSession.GetRoundTask(currentRound).Points.ToString();
+            }
+            ActivateScreen(auftrag.gameObject);
+        }
+        else
+        {
+            ActivateScreen(endscreen.gameObject);
+        }
+
     }
 
-    private void SetAllRoundsUnplayed()
+    private void SetUIRoundsUnplayed()
     {
         for(int i = 0; i < roundImgsAuftrag.Length; i++)
         {
@@ -95,7 +109,8 @@ public class PepperOnlyManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             EnableTaskCanvas();
-            ActivateScreen(auftrag.gameObject);
+            currentSession.IncreaseRound();
+            //ActivateScreen(auftrag.gameObject);
             //mixColorObj.EvaluatePoints(currentSession.)
         }
     }
