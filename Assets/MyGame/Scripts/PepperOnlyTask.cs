@@ -47,6 +47,11 @@ public class PepperOnlyTask : MonoBehaviour
         Points = -1;
     }
 
+    public void SetTask(int task)
+    {
+        TargetTask = (TaskToDo)task;
+    }
+
     private int CalculatePoints(float euclidDistance)
     {
         int points = -1;

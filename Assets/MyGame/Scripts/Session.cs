@@ -18,7 +18,7 @@ public class Session : MonoBehaviour
     public string zeitstempel;
     public PlayMode mode;
 
-    private PepperOnlyTask[] tasks;
+    [SerializeField] private PepperOnlyTask[] tasks;
     private int maxRounds = 4;
     private int currentRound = -1;
 
@@ -40,6 +40,7 @@ public class Session : MonoBehaviour
         mode = modus;
 
         tasks = GenerateTaskArray(maxRounds);
+        Debug.Log("Size Array" + tasks.Length);
     }
 
     public int SumTaskResults()
@@ -56,6 +57,15 @@ public class Session : MonoBehaviour
     public void SetFirstRound()
     {
         currentRound = 0;
+    }
+
+    public void AddTask(TaskToDo task)
+    {
+        GameObject obj = new GameObject();
+        obj.AddComponent<PepperOnlyTask>();
+        obj.GetComponent<PepperOnlyTask>().SetTask((int)task);
+        obj.name = "task" + currentRound;
+        tasks[currentRound] = obj.GetComponent<PepperOnlyTask>();
     }
 
     public int GetCurrentRound()

@@ -289,10 +289,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 66829152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 14.619049, y: -14.592453}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1365348
 CanvasRenderer:
@@ -595,10 +595,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 528073599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 79.380005, y: -49.195007}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &24484552
 MonoBehaviour:
@@ -644,9 +644,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1061424174}
-        m_TargetAssemblyTypeName: MixObjectColor, Assembly-CSharp
-        m_MethodName: SetTask
+      - m_Target: {fileID: 1286853929}
+        m_TargetAssemblyTypeName: PepperOnlyManager, Assembly-CSharp
+        m_MethodName: GenerateTask
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -964,10 +964,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 66829152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 14.619049, y: -33.29245}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &85529809
 CanvasRenderer:
@@ -1588,10 +1588,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 528073599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 79.380005, y: -24.994995}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &107845505
 MonoBehaviour:
@@ -1637,9 +1637,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1061424174}
-        m_TargetAssemblyTypeName: MixObjectColor, Assembly-CSharp
-        m_MethodName: SetTask
+      - m_Target: {fileID: 1286853929}
+        m_TargetAssemblyTypeName: PepperOnlyManager, Assembly-CSharp
+        m_MethodName: GenerateTask
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3073,10 +3073,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 528073599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 29.480011, y: -73.39502}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &377614743
 MonoBehaviour:
@@ -3122,9 +3122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1061424174}
-        m_TargetAssemblyTypeName: MixObjectColor, Assembly-CSharp
-        m_MethodName: SetTask
+      - m_Target: {fileID: 1286853929}
+        m_TargetAssemblyTypeName: PepperOnlyManager, Assembly-CSharp
+        m_MethodName: GenerateTask
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4701,10 +4701,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 66829152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 14.619049, y: -51.992447}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &544109528
 CanvasRenderer:
@@ -4912,10 +4912,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 66829152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 14.619049, y: -70.692444}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &635622726
 CanvasRenderer:
@@ -5012,7 +5012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &660198563
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8448,6 +8448,13 @@ MonoBehaviour:
   - {fileID: 106243101}
   playerPoints: []
   mixColorObj: {fileID: 0}
+  spritesAuftrag:
+  - {fileID: 21300000, guid: 4b74ca424a3d4534d967e2ccc1db1658, type: 3}
+  - {fileID: 21300000, guid: 661952365355f724b93d02f25f610eb4, type: 3}
+  - {fileID: 21300000, guid: 011b71221859eb749974d2d5d96eb832, type: 3}
+  - {fileID: 21300000, guid: 9d3fa814495b81948a03a79a50cf43fd, type: 3}
+  - {fileID: 21300000, guid: 9e016104400f0d14c90929d537cb3a5a, type: 3}
+  - {fileID: 21300000, guid: 6ad30067b22ffe64da4b187d7dfa27e6, type: 3}
 --- !u!4 &1286853930
 Transform:
   m_ObjectHideFlags: 0
@@ -9330,7 +9337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1436892155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10199,10 +10206,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 528073599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 29.480011, y: -49.195007}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1573291017
 MonoBehaviour:
@@ -10248,9 +10255,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1061424174}
-        m_TargetAssemblyTypeName: MixObjectColor, Assembly-CSharp
-        m_MethodName: SetTask
+      - m_Target: {fileID: 1286853929}
+        m_TargetAssemblyTypeName: PepperOnlyManager, Assembly-CSharp
+        m_MethodName: GenerateTask
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11316,10 +11323,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 528073599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 29.480011, y: -24.994995}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1736358310
 MonoBehaviour:
@@ -11365,9 +11372,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1061424174}
-        m_TargetAssemblyTypeName: MixObjectColor, Assembly-CSharp
-        m_MethodName: SetTask
+      - m_Target: {fileID: 1286853929}
+        m_TargetAssemblyTypeName: PepperOnlyManager, Assembly-CSharp
+        m_MethodName: GenerateTask
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13209,10 +13216,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 528073599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 79.380005, y: -73.39502}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1991620794
 MonoBehaviour:
@@ -13258,9 +13265,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1061424174}
-        m_TargetAssemblyTypeName: MixObjectColor, Assembly-CSharp
-        m_MethodName: SetTask
+      - m_Target: {fileID: 1286853929}
+        m_TargetAssemblyTypeName: PepperOnlyManager, Assembly-CSharp
+        m_MethodName: GenerateTask
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

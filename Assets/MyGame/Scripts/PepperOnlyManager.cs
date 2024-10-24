@@ -17,6 +17,8 @@ public class PepperOnlyManager : MonoBehaviour
     [SerializeField] private TMP_Text[] rgbPlayer0, rbgPlayer1, rbgPlayer2, rbgPlayer3;
     [SerializeField] private TMP_Text[] playerPoints;
     [SerializeField] private MixObjectColor mixColorObj;
+    [SerializeField] private Sprite[] spritesAuftrag;
+    
 
     private int round = 0;
 
@@ -38,6 +40,8 @@ public class PepperOnlyManager : MonoBehaviour
         welcome.gameObject.SetActive(true);
     }
 
+
+    //WelcomeSene BTN Start. 
     public void StartSession()
     {
         DateTime currentDateTime = DateTime.Now;
@@ -54,6 +58,12 @@ public class PepperOnlyManager : MonoBehaviour
         playerNameAuftrag.text = currentSession.PlayerName;
     }
 
+    public void GenerateTask(int task)
+    {
+        currentSession.AddTask((TaskToDo)task);
+        auftrag.gameObject.SetActive(false);
+    }
+
     public bool IsPlayMode()
     {
         return !welcome.gameObject.activeSelf && !auftrag.gameObject.activeSelf;
@@ -63,13 +73,14 @@ public class PepperOnlyManager : MonoBehaviour
     {
         playerNameAuftrag.text = currentSession.PlayerName;
         int currentRound = currentSession.GetCurrentRound();
-        if(currentRound <= currentSession.MaxRounds)
+        if(currentRound < currentSession.MaxRounds)
         {
-            for (int i = 0; i <= currentRound; i++)
+            for (int i = 0; i < currentRound; i++)
             {
                 roundImgsAuftrag[i].color = Color.white;
                 roundPoints[i].text = currentSession.GetRoundTask(currentRound).Points.ToString();
             }
+
             ActivateScreen(auftrag.gameObject);
         }
         else
@@ -77,6 +88,14 @@ public class PepperOnlyManager : MonoBehaviour
             ActivateScreen(endscreen.gameObject);
         }
 
+    }
+
+    public void CollectEndScreenData()
+    {
+        for(int i = 0; i < currentSession.MaxRounds; i++)
+        {
+            TaskToDo tmpTask = currentSession.GetRoundTask(i).TargetTask;
+        }
     }
 
     private void SetUIRoundsUnplayed()

@@ -200,15 +200,4 @@ public class MixObjectColor : MonoBehaviour
         taskInputCanvas.SetActive(true);
 
     }
-
-
-  
-
-    public void SetTask(int task) 
-    {
-        currentTask = (TaskToDo)task;
-        taskInputCanvas.SetActive(false);
-    }
-
-
 }
