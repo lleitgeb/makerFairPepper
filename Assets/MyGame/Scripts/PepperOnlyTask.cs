@@ -22,8 +22,8 @@ public class PepperOnlyTask : MonoBehaviour
     private float euclidDistance = -1;
     private string resultFeedback = "";
 
-    public TaskToDo targetTask;
-    public Color playerColor;
+    public TaskToDo targetTask = TaskToDo.None;
+    public Color playerColor = Color.black;
     public int Points=-1;
 
 
@@ -87,6 +87,12 @@ public class PepperOnlyTask : MonoBehaviour
     private void SetFeedback(int points)
     {
         resultFeedback = feedback[points];
+    }
+
+    public void  CalcPoints()
+    {
+        Points = CalculatePoints(EvaluatePoints(targetTask, playerColor));
+        Debug.Log("distance: " + EvaluatePoints(targetTask, playerColor) + " pionts: " + Points);
     }
 
     public int EvaluatePoints(TaskToDo cTask, Color32 mixedColor)

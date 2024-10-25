@@ -66,6 +66,11 @@ public class MixObjectColor : MonoBehaviour
         taskInputCanvas.SetActive(true);
     }
 
+    public Color32 GetPlayerMixedColor()
+    {
+        return mixedColor;
+    }
+
     public void StartParticles(ColorRGB color)
     {
         Debug.Log("Start Particles!!!!");
@@ -177,27 +182,29 @@ public class MixObjectColor : MonoBehaviour
         return outputMarkerFull + (inputValue - inputMarkerFull) * (outputMarkerEmpty - outputMarkerFull) / (inputMarkerEmpty - inputMarkerFull);
     }
 
+    public void ResetPipeStation()
+    {
+        mixedColor = taskColors[(int)TaskToDo.None];
+        objMaterial.color = mixedColor;
+        red.fillAmount = blue.fillAmount = green.fillAmount = inputMarkerFull;
+    }
+
     private void Update()
     {
         if (redParticleSystem.isPlaying && PipeEmpty(ColorRGB.Red)) redParticleSystem.Stop();
         if (greenParticleSystem.isPlaying && PipeEmpty(ColorRGB.Green)) greenParticleSystem.Stop();
         if (blueParticleSystem.isPlaying && PipeEmpty(ColorRGB.Blue)) blueParticleSystem.Stop();
         
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //EvaluatePoints();
-            mixedColor = taskColors[(int)TaskToDo.None];
-            objMaterial.color = mixedColor;
-            red.fillAmount = blue.fillAmount = green.fillAmount = inputMarkerFull;
-            //Debug.Log("RESET PIPES");
-            //pepperManager.EnableTaskCanvas();
-            //taskInputCanvas.SetActive(true);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    mixedColor = taskColors[(int)TaskToDo.None];
+        //    objMaterial.color = mixedColor;
+        //    red.fillAmount = blue.fillAmount = green.fillAmount = inputMarkerFull;
+        //}
     }
 
     public void EnableTaskCanvas()
     {
         taskInputCanvas.SetActive(true);
-
     }
 }

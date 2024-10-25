@@ -53,16 +53,16 @@ public class PepperOnlyManager : MonoBehaviour
 
         SetUIRoundsUnplayed();
         EnableTaskCanvas();
-        currentSession.IncreaseRound();
 
         //UpdateUI in Welcome-Canvas
         playerNameAuftrag.text = currentSession.PlayerName;
     }
 
+    //Wir von Card in AuftragCanvas aufgerufen. 
     public void GenerateTask(int task)
     {
+        Debug.Log("generate task curr round " + currentSession.GetCurrentRound());
         currentSession.SetTask((TaskToDo)task);
-        //currentSession.AddTask((TaskToDo)task);
         auftrag.gameObject.SetActive(false);
     }
 
@@ -93,7 +93,6 @@ public class PepperOnlyManager : MonoBehaviour
 
             ActivateScreen(auftrag.gameObject);
         }
-
     }
 
     public void SetEndScreenInfos()
@@ -138,10 +137,14 @@ public class PepperOnlyManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("cur round: " + currentSession.GetCurrentRound());
+
+            PepperOnlyTask cptask = currentSession.GetRoundTask(currentSession.GetCurrentRound());
+            cptask.playerColor = mixColorObj.GetPlayerMixedColor();
+            cptask.CalcPoints();
             EnableTaskCanvas();
             currentSession.IncreaseRound();
-            //ActivateScreen(auftrag.gameObject);
-            //mixColorObj.EvaluatePoints(currentSession.)
+            mixColorObj.ResetPipeStation();
         }
     }
 }
