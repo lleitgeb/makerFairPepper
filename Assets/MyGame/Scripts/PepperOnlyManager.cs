@@ -46,13 +46,14 @@ public class PepperOnlyManager : MonoBehaviour
     {
         DateTime currentDateTime = DateTime.Now;
         string customFormat = currentDateTime.ToString("yyyy-MM-dd-HH:mm:ss");
-        
-        currentSession = new Session(playerNameWelcome.text, customFormat, PlayMode.PepperOnly);
+
+        currentSession = new GameObject().AddComponent<Session>();
+        currentSession.SetInfos(playerNameWelcome.text, customFormat, PlayMode.PepperOnly);
         currentSession.SetFirstRound();
 
-        ActivateScreen(auftrag.gameObject);
-
         SetUIRoundsUnplayed();
+        EnableTaskCanvas();
+        currentSession.IncreaseRound();
 
         //UpdateUI in Welcome-Canvas
         playerNameAuftrag.text = currentSession.PlayerName;
@@ -60,7 +61,8 @@ public class PepperOnlyManager : MonoBehaviour
 
     public void GenerateTask(int task)
     {
-        currentSession.AddTask((TaskToDo)task);
+        currentSession.SetTask((TaskToDo)task);
+        //currentSession.AddTask((TaskToDo)task);
         auftrag.gameObject.SetActive(false);
     }
 
@@ -73,28 +75,37 @@ public class PepperOnlyManager : MonoBehaviour
     {
         playerNameAuftrag.text = currentSession.PlayerName;
         int currentRound = currentSession.GetCurrentRound();
-        if(currentRound < currentSession.MaxRounds)
+        roundImgsAuftrag[currentRound].color = Color.white;
+        Debug.Log("enable canvas: !!!! cr " + currentRound);
+        if(currentRound >= currentSession.MaxRounds-1)
         {
-            for (int i = 0; i < currentRound; i++)
+            SetEndScreenInfos();
+            ActivateScreen(endscreen.gameObject);
+        }
+        else
+        {
+            for (int i = 0; i < currentSession.MaxRounds; i++)
             {
-                roundImgsAuftrag[i].color = Color.white;
-                roundPoints[i].text = currentSession.GetRoundTask(currentRound).Points.ToString();
+                Debug.Log("poiont: " + i + " " + currentSession.GetRoundTask(i).Points);
+                if (currentSession.GetRoundTask(i).Points == -1) break;
+                roundPoints[i].text = currentSession.GetRoundTask(i).Points.ToString();
             }
 
             ActivateScreen(auftrag.gameObject);
         }
-        else
-        {
-            ActivateScreen(endscreen.gameObject);
-        }
 
+    }
+
+    public void SetEndScreenInfos()
+    {
+        //for(int i = 0; i < currentSession)
     }
 
     public void CollectEndScreenData()
     {
         for(int i = 0; i < currentSession.MaxRounds; i++)
         {
-            TaskToDo tmpTask = currentSession.GetRoundTask(i).TargetTask;
+            TaskToDo tmpTask = currentSession.GetRoundTask(i).targetTask;
         }
     }
 

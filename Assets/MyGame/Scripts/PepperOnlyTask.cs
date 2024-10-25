@@ -16,40 +16,39 @@ public enum TaskToDo
 
 public class PepperOnlyTask : MonoBehaviour
 {
-    private Color32[] taskColors = new Color32[]
-    {
-        new Color32(253, 196, 4, 255), //fdch04 gelb bear
-        new Color32(90, 160, 216, 255), //5aa0d8 blau cat
-        new Color32(0, 167, 102, 255), //00a766 grün owl
-        new Color32(217, 75, 50, 255), //d94b32 rot one
-        new Color32(186, 198, 52, 255), //bac634 lime two
-        new Color32(147, 114, 177, 255), //fdch04 lila three
-        new Color32(0, 0, 0, 255), //000000 black None
-    };
-
-    private string[] feedback = new string[]
-    {
-        "Maximal unterschiedlich!",
-        "Ziemlich unterschiedlich!",
-        "Ähnlich, aber erkennbar unterschiedlich!",
-        "Ähnlich, fast nicht zu unterscheiden!",
-        "Die Farben sind komplett identisch!"
-    };
-
-    public TaskToDo TargetTask { get; set; }
-    public Color PlayerColor { get; set; }
+    private ItemData peppersGhostData;
+    private Color32[] taskColors;
+    private string[] feedback;
     private float euclidDistance = -1;
-    public int Points { get; set; }
     private string resultFeedback = "";
+
+    public TaskToDo targetTask;
+    public Color playerColor;
+    public int Points=-1;
+
 
     private void Start()
     {
+        peppersGhostData = Resources.Load<ItemData>("PeppersGhostData");
         Points = -1;
+        if (peppersGhostData != null)
+        {
+            Debug.Log("Scriptable Object erfolgreich geladen!");
+            // Hier kannst du auf die Eigenschaften deines Scriptable Objects zugreifen
+            Debug.Log("Name: " + peppersGhostData.name);
+            taskColors = peppersGhostData.taskColors;
+            feedback = peppersGhostData.feedback;
+            Debug.Log("points: " + Points);
+        }
+        else
+        {
+            Debug.LogWarning("Scriptable Object konnte nicht geladen werden.");
+        }
     }
 
     public void SetTask(int task)
     {
-        TargetTask = (TaskToDo)task;
+        targetTask = (TaskToDo)task;
     }
 
     private int CalculatePoints(float euclidDistance)

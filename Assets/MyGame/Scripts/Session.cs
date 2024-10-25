@@ -24,6 +24,7 @@ public class Session : MonoBehaviour
 
     public PepperOnlyTask GetRoundTask(int round)
     {
+        Debug.Log("Round: " + round + " " +tasks[round].name + ", "+ tasks[round].Points);
         return tasks[round];
     }
 
@@ -33,8 +34,9 @@ public class Session : MonoBehaviour
         get { return maxRounds; }
     }
 
-    public Session(string name, string zeit, PlayMode modus)
+    public void SetInfos(string name, string zeit, PlayMode modus)
     {
+        gameObject.name = "session";
         PlayerName = name;
         zeitstempel = zeit;
         mode = modus;
@@ -42,6 +44,16 @@ public class Session : MonoBehaviour
         tasks = GenerateTaskArray(maxRounds);
         Debug.Log("Size Array" + tasks.Length);
     }
+
+    //public Session(string name, string zeit, PlayMode modus)
+    //{
+    //    PlayerName = name;
+    //    zeitstempel = zeit;
+    //    mode = modus;
+
+    //    tasks = GenerateTaskArray(maxRounds);
+    //    Debug.Log("Size Array" + tasks.Length);
+    //}
 
     public int SumTaskResults()
     {
@@ -59,6 +71,13 @@ public class Session : MonoBehaviour
         currentRound = 0;
     }
 
+    private PepperOnlyTask CreateNewTask()
+    {
+        GameObject obj = new GameObject();
+        obj.AddComponent<PepperOnlyTask>();
+        return obj.GetComponent<PepperOnlyTask>();
+    }
+
     public void AddTask(TaskToDo task)
     {
         GameObject obj = new GameObject();
@@ -66,6 +85,11 @@ public class Session : MonoBehaviour
         obj.GetComponent<PepperOnlyTask>().SetTask((int)task);
         obj.name = "task" + currentRound;
         tasks[currentRound] = obj.GetComponent<PepperOnlyTask>();
+    }
+
+    public void SetTask(TaskToDo task)
+    {
+        tasks[currentRound].SetTask((int)task);
     }
 
     public int GetCurrentRound()
@@ -90,7 +114,8 @@ public class Session : MonoBehaviour
         PepperOnlyTask[] tasks = new PepperOnlyTask[maxRounds];
         for(int i = 0; i < tasks.Length; i++)
         {
-            tasks[i] = new PepperOnlyTask();
+            tasks[i] = CreateNewTask();
+            tasks[i].name = "task" + i;
         }
 
         return tasks;
@@ -115,7 +140,7 @@ public class Session : MonoBehaviour
             // Konvertiere den Modus-String zurück in ein Enum
             PlayMode modus = (PlayMode)Enum.Parse(typeof(PlayMode), parts[3]);
 
-            sessions.Add(new Session(name, zeit, modus));
+            //sessions.Add(new Session(name, zeit, modus));
         }
 
         return sessions;
