@@ -78,18 +78,8 @@ public class Session : MonoBehaviour
         return obj.GetComponent<PepperOnlyTask>();
     }
 
-    //public void AddTask(TaskToDo task)
-    //{
-    //    GameObject obj = new GameObject();
-    //    obj.AddComponent<PepperOnlyTask>();
-    //    obj.GetComponent<PepperOnlyTask>().SetTask((int)task);
-    //    obj.name = "task" + currentRound;
-    //    tasks[currentRound] = obj.GetComponent<PepperOnlyTask>();
-    //}
-
     public void SetTask(TaskToDo task)
     {
-        Debug.Log("in settask cur round? " + currentRound);
         tasks[currentRound].SetTask((int)task);
     }
 
@@ -141,15 +131,9 @@ public class Session : MonoBehaviour
             // Konvertiere den Modus-String zurück in ein Enum
             PlayMode modus = (PlayMode)Enum.Parse(typeof(PlayMode), parts[3]);
 
-            //sessions.Add(new Session(name, zeit, modus));
         }
 
         return sessions;
-    }
-
-    public void EnableEndScreen()
-    {
-
     }
 
     // Methode zum Anzeigen der Rangliste

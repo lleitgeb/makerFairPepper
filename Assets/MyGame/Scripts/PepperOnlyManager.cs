@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
@@ -13,11 +11,12 @@ public class PepperOnlyManager : MonoBehaviour
     [SerializeField] private TMP_Text[] roundPoints;
     [SerializeField] private Image[] roundImgsAuftrag;
     [SerializeField] private Image[] endSceneTaskImages;
-    [SerializeField] private TMP_Text[] rgbTarget0, rbgTarget1, rbgTarget2, rbgTarget3;
-    [SerializeField] private TMP_Text[] rgbPlayer0, rbgPlayer1, rbgPlayer2, rbgPlayer3;
+    [SerializeField] private TMP_Text[] rgbTarget0, rgbTarget1, rgbTarget2, rgbTarget3;
+    [SerializeField] private TMP_Text[] rgbPlayer0, rgbPlayer1, rgbPlayer2, rgbPlayer3;
     [SerializeField] private TMP_Text[] playerPoints;
     [SerializeField] private MixObjectColor mixColorObj;
     [SerializeField] private Sprite[] spritesAuftrag;
+    [SerializeField] private TMP_Text sumPoints;
     
 
     private int round = 0;
@@ -61,7 +60,6 @@ public class PepperOnlyManager : MonoBehaviour
     //Wir von Card in AuftragCanvas aufgerufen. 
     public void GenerateTask(int task)
     {
-        Debug.Log("generate task curr round " + currentSession.GetCurrentRound());
         currentSession.SetTask((TaskToDo)task);
         auftrag.gameObject.SetActive(false);
     }
@@ -97,14 +95,56 @@ public class PepperOnlyManager : MonoBehaviour
 
     public void SetEndScreenInfos()
     {
-        //for(int i = 0; i < currentSession)
+        for (int i = 0; i < currentSession.MaxRounds; i++)
+        {
+            PepperOnlyTask tmpTask = currentSession.GetRoundTask(i);
+            
+            Sprite taskSprite = tmpTask.targetSprite;
+            endSceneTaskImages[i].sprite = taskSprite;
+
+            playerPoints[i].text = tmpTask.Points.ToString();
+
+            TMP_Text[] tmpRGBTarget = new TMP_Text[3];
+            TMP_Text[] tmpRGBPlayer = new TMP_Text[3];
+
+            switch (i)
+            {
+                case 0:
+                    tmpRGBTarget = rgbTarget0;
+                    tmpRGBPlayer = rgbPlayer0;
+                    break;
+                case 1:
+                    tmpRGBTarget = rgbTarget1;
+                    tmpRGBPlayer = rgbPlayer1;
+                    break;
+                case 2:
+                    tmpRGBTarget = rgbTarget2;
+                    tmpRGBPlayer = rgbPlayer2;
+                    break;
+                case 3:
+                    tmpRGBTarget = rgbTarget3;
+                    tmpRGBPlayer = rgbPlayer3;
+                    break;
+            }
+
+            tmpRGBTarget[0].text = tmpTask.targetColor.r.ToString();
+            tmpRGBTarget[1].text = tmpTask.targetColor.g.ToString();
+            tmpRGBTarget[2].text = tmpTask.targetColor.b.ToString();
+
+            tmpRGBPlayer[0].text = tmpTask.playerColor.r.ToString();
+            tmpRGBPlayer[1].text = tmpTask.playerColor.g.ToString();
+            tmpRGBPlayer[2].text = tmpTask.playerColor.b.ToString();
+        }
+        sumPoints.text = currentSession.SumTaskResults().ToString();
     }
 
     public void CollectEndScreenData()
     {
         for(int i = 0; i < currentSession.MaxRounds; i++)
         {
-            TaskToDo tmpTask = currentSession.GetRoundTask(i).targetTask;
+            Sprite taskSprite = currentSession.GetRoundTask(i).targetSprite;
+            Debug.Log("taskSprite name: " +taskSprite.name);
+            endSceneTaskImages[i].sprite = taskSprite;
         }
     }
 
@@ -130,6 +170,7 @@ public class PepperOnlyManager : MonoBehaviour
 
     public void EnableEndSession()
     {
+        CollectEndScreenData();
         ActivateScreen(endscreen.gameObject);
     }
 

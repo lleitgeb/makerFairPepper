@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public enum TaskToDo
@@ -21,9 +22,11 @@ public class PepperOnlyTask : MonoBehaviour
     private string[] feedback;
     private float euclidDistance = -1;
     private string resultFeedback = "";
+    public Color32 targetColor = Color.black;
+    public Sprite targetSprite;
 
     public TaskToDo targetTask = TaskToDo.None;
-    public Color playerColor = Color.black;
+    public Color32 playerColor = Color.black;
     public int Points=-1;
 
 
@@ -34,11 +37,8 @@ public class PepperOnlyTask : MonoBehaviour
         if (peppersGhostData != null)
         {
             Debug.Log("Scriptable Object erfolgreich geladen!");
-            // Hier kannst du auf die Eigenschaften deines Scriptable Objects zugreifen
-            Debug.Log("Name: " + peppersGhostData.name);
             taskColors = peppersGhostData.taskColors;
             feedback = peppersGhostData.feedback;
-            Debug.Log("points: " + Points);
         }
         else
         {
@@ -49,6 +49,8 @@ public class PepperOnlyTask : MonoBehaviour
     public void SetTask(int task)
     {
         targetTask = (TaskToDo)task;
+        targetColor = peppersGhostData.GetTargetColor(targetTask);
+        targetSprite = peppersGhostData.GetTargetSprite(targetTask);
     }
 
     private int CalculatePoints(float euclidDistance)
@@ -91,36 +93,13 @@ public class PepperOnlyTask : MonoBehaviour
 
     public void  CalcPoints()
     {
-        Points = CalculatePoints(EvaluatePoints(targetTask, playerColor));
-        Debug.Log("distance: " + EvaluatePoints(targetTask, playerColor) + " pionts: " + Points);
+        
+        Points = EvaluatePoints(targetTask, playerColor);
     }
 
     public int EvaluatePoints(TaskToDo cTask, Color32 mixedColor)
     {
-        int distance = -1;
-
-        switch (cTask)
-        {
-            case TaskToDo.Bear:
-                distance = (int)CalculateColorDistance(GetTargetColor(TaskToDo.Bear), mixedColor);
-                break;
-            case TaskToDo.Cat:
-                distance = (int)CalculateColorDistance(GetTargetColor(TaskToDo.Cat), mixedColor);
-                break;
-            case TaskToDo.Owl:
-                distance = (int)CalculateColorDistance(GetTargetColor(TaskToDo.Owl), mixedColor);
-                break;
-            case TaskToDo.One:
-                distance = (int)CalculateColorDistance(GetTargetColor(TaskToDo.One), mixedColor);
-                break;
-            case TaskToDo.Two:
-                distance = (int)CalculateColorDistance(GetTargetColor(TaskToDo.Two), mixedColor);
-                break;
-            case TaskToDo.Three:
-                distance = (int)CalculateColorDistance(GetTargetColor(TaskToDo.Three), mixedColor);
-                break;
-        }
-
+        int distance = (int)CalculateColorDistance(targetColor, mixedColor);
         int points = CalculatePoints(distance);
         return points;
     }
@@ -138,24 +117,24 @@ public class PepperOnlyTask : MonoBehaviour
         return euclidDistance;
     }
 
-    public Color32 GetTargetColor(TaskToDo task)
-    {
-        switch(task)
-        {
-            case TaskToDo.Bear: 
-                return taskColors[(int)TaskToDo.Bear];
-            case TaskToDo.Cat:
-                return taskColors[(int)TaskToDo.Cat]; 
-            case TaskToDo.Owl:
-                return taskColors[(int)TaskToDo.Owl];
-            case TaskToDo.One:
-                return taskColors[(int)TaskToDo.One];
-            case TaskToDo.Two:
-                return taskColors[(int)TaskToDo.Two];
-            case TaskToDo.Three:
-                return taskColors[(int)TaskToDo.Three];
-            default:
-                return Color.black;
-        }
-    }
+    //public Color32 GetTargetColor(TaskToDo task)
+    //{
+    //    switch(task)
+    //    {
+    //        case TaskToDo.Bear: 
+    //            return taskColors[(int)TaskToDo.Bear];
+    //        case TaskToDo.Cat:
+    //            return taskColors[(int)TaskToDo.Cat]; 
+    //        case TaskToDo.Owl:
+    //            return taskColors[(int)TaskToDo.Owl];
+    //        case TaskToDo.One:
+    //            return taskColors[(int)TaskToDo.One];
+    //        case TaskToDo.Two:
+    //            return taskColors[(int)TaskToDo.Two];
+    //        case TaskToDo.Three:
+    //            return taskColors[(int)TaskToDo.Three];
+    //        default:
+    //            return Color.black;
+    //    }
+    //}
 }
