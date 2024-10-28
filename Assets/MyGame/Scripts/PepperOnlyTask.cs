@@ -14,26 +14,20 @@ public enum TaskToDo
 public class PepperOnlyTask : MonoBehaviour
 {
     private ItemData peppersGhostData;
-    private Color32[] taskColors;
-    private string[] feedback;
-    //private float euclidDistance = -1;
-    private string resultFeedback = "";
     public Color32 targetColor = Color.black;
     public Sprite targetSprite;
 
     public TaskToDo targetTask = TaskToDo.None;
     public Color32 playerColor = Color.black;
-    public int Points=-1;
-
+    public int points=-1;
 
     private void Start()
     {
         peppersGhostData = Resources.Load<ItemData>("PeppersGhostData");
-        Points = -1;
+        points = -1;
         if (peppersGhostData != null)
         {
             Debug.Log("Scriptable Object erfolgreich geladen!");
-            feedback = peppersGhostData.feedback;
         }
         else
         {
@@ -81,15 +75,9 @@ public class PepperOnlyTask : MonoBehaviour
         return points;
     }
 
-    private void SetFeedback(int points)
-    {
-        resultFeedback = feedback[points];
-    }
-
     public void  CalcPoints()
     {
-        
-        Points = EvaluatePoints(targetTask, playerColor);
+        points = EvaluatePoints(targetTask, playerColor);
     }
 
     public int EvaluatePoints(TaskToDo cTask, Color32 mixedColor)

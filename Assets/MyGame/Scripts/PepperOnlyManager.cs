@@ -92,8 +92,8 @@ public class PepperOnlyManager : MonoBehaviour
         {
             for (int i = 0; i < currentSession.MaxRounds; i++)
             {
-                if (currentSession.GetRoundTask(i).Points == -1) break;
-                roundPoints[i].text = currentSession.GetRoundTask(i).Points.ToString();
+                if (currentSession.GetRoundTask(i).points == -1) break;
+                roundPoints[i].text = currentSession.GetRoundTask(i).points.ToString();
             }
 
             ActivateScreen(auftrag.gameObject);
@@ -111,7 +111,7 @@ public class PepperOnlyManager : MonoBehaviour
             Sprite taskSprite = tmpTask.targetSprite;
             endSceneTaskImages[i].sprite = taskSprite;
 
-            playerPoints[i].text = tmpTask.Points.ToString();
+            playerPoints[i].text = tmpTask.points.ToString();
 
             TMP_Text[] tmpRGBTarget = new TMP_Text[3];
             TMP_Text[] tmpRGBPlayer = new TMP_Text[3];
@@ -175,7 +175,7 @@ public class PepperOnlyManager : MonoBehaviour
         {
             if (IsInTaskMode()) return;
 
-            if (currentSession.GetRoundTask(currentSession.GetCurrentRound()).Points == -1)
+            if (currentSession.GetRoundTask(currentSession.GetCurrentRound()).points == -1)
             {
                 SetMixColorButtonsInteractable(false);
                 

@@ -47,8 +47,8 @@ public class Session : MonoBehaviour
         int sum = 0;
         foreach(PepperOnlyTask a in tasks)
         {
-            if (a.Points == -1) break;
-            sum += a.Points;
+            if (a.points == -1) break;
+            sum += a.points;
         }
         return sum;
     }
