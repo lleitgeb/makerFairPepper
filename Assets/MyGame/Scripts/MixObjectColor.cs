@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public enum ColorRGB
 {
@@ -12,17 +9,6 @@ public enum ColorRGB
 
 public class MixObjectColor : MonoBehaviour
 {
-    private Color32[] taskColors = new Color32[]
-    {
-        new Color32(253, 196, 4, 255), //fdch04 gelb bear
-        new Color32(90, 160, 216, 255), //5aa0d8 blau cat
-        new Color32(0, 167, 102, 255), //00a766 grün owl
-        new Color32(217, 75, 50, 255), //d94b32 rot one
-        new Color32(186, 198, 52, 255), //bac634 lime two
-        new Color32(147, 114, 177, 255), //fdch04 lila three
-        new Color32(0, 0, 0, 255), //000000 black None
-    };
-
     private Material objMaterial;
     [SerializeField] private PepperOnlyManager pepperManager;
     [SerializeField] private GameObject kuebelObject;
@@ -41,29 +27,28 @@ public class MixObjectColor : MonoBehaviour
     private float outputMarkerFull = 255f;   // Voll
     private float outputMarkerEmpty = 0f;     // Leer
 
-    private Color32 mixedColor;
+    private Color32 mixedColor = Color.black;
 
-    private TaskToDo currentTask = TaskToDo.None;
-    [SerializeField] private GameObject taskInputCanvas;
+    private ItemData peppersGhostData;
+
 
     // Start is called before the first frame update
     private void Start()
     {
         pepperManager = GameObject.FindObjectOfType<PepperOnlyManager>();
+        peppersGhostData = Resources.Load<ItemData>("PeppersGhostData");
+
         objMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-        mixedColor = new Color32(0, 0, 0,255);
+        mixedColor = new Color32(0, 0, 0, 255);
         objMaterial.color = mixedColor;
         kuebelObject.GetComponent<MeshRenderer>().material = objMaterial;
+        
         currentParticleSystem = null;
         redParticleSystem.Stop();
         blueParticleSystem.Stop();
         greenParticleSystem.Stop();
 
-        red.fillAmount = inputMarkerFull;
-        blue.fillAmount = inputMarkerFull;
-        green.fillAmount = inputMarkerFull;
-
-        taskInputCanvas.SetActive(true);
+        FillPipes();
     }
 
     public Color32 GetPlayerMixedColor()
@@ -73,7 +58,6 @@ public class MixObjectColor : MonoBehaviour
 
     public void StartParticles(ColorRGB color)
     {
-        Debug.Log("Start Particles!!!!");
         switch (color)
         {
             case ColorRGB.Red:
@@ -128,7 +112,6 @@ public class MixObjectColor : MonoBehaviour
             default:
                 return false;
         }
-        
     }
 
     public void DecreaseFillState(ColorRGB color)
@@ -137,13 +120,11 @@ public class MixObjectColor : MonoBehaviour
         byte g = GetByte((byte)MapRange(green.fillAmount));
         byte b = GetByte((byte)MapRange(blue.fillAmount));
 
-        Debug.Log("in decrase" + color);
         switch (color)
         {
             case ColorRGB.Red:
                 if(red.fillAmount <= inputMarkerEmpty)
                 {
-                    Debug.Log("in REd");
                     red.fillAmount += stepSize;
                     int result = 255 - (byte)MapRange(red.fillAmount);
                     result = Mathf.Clamp(result, 0, 255);
@@ -153,7 +134,6 @@ public class MixObjectColor : MonoBehaviour
             case ColorRGB.Blue:
                 if (blue.fillAmount <= inputMarkerEmpty)
                 {
-                    Debug.Log("in Blue");
                     blue.fillAmount += stepSize;
                     int result = 255 - (byte)MapRange(blue.fillAmount);
                     result = Mathf.Clamp(result, 0, 255);
@@ -163,7 +143,6 @@ public class MixObjectColor : MonoBehaviour
             case ColorRGB.Green:
                 if (green.fillAmount <= inputMarkerEmpty)
                 {
-                    Debug.Log("in Green");
                     green.fillAmount += stepSize;
                     int result = 255 - (byte)MapRange(green.fillAmount);
                     result = Mathf.Clamp(result, 0, 255);
@@ -173,7 +152,6 @@ public class MixObjectColor : MonoBehaviour
         }
 
         mixedColor = new Color32(r, g, b, 255);
-        Debug.Log("----------------------Color: "+mixedColor);
         objMaterial.color = mixedColor;
     }
 
@@ -182,11 +160,15 @@ public class MixObjectColor : MonoBehaviour
         return outputMarkerFull + (inputValue - inputMarkerFull) * (outputMarkerEmpty - outputMarkerFull) / (inputMarkerEmpty - inputMarkerFull);
     }
 
+    public void FillPipes()
+    {
+        red.fillAmount = blue.fillAmount = green.fillAmount = inputMarkerFull;
+    }
     public void ResetPipeStation()
     {
-        mixedColor = taskColors[(int)TaskToDo.None];
+        mixedColor = peppersGhostData.taskColors[(int)TaskToDo.None];
         objMaterial.color = mixedColor;
-        red.fillAmount = blue.fillAmount = green.fillAmount = inputMarkerFull;
+        FillPipes();
     }
 
     private void Update()
@@ -194,17 +176,5 @@ public class MixObjectColor : MonoBehaviour
         if (redParticleSystem.isPlaying && PipeEmpty(ColorRGB.Red)) redParticleSystem.Stop();
         if (greenParticleSystem.isPlaying && PipeEmpty(ColorRGB.Green)) greenParticleSystem.Stop();
         if (blueParticleSystem.isPlaying && PipeEmpty(ColorRGB.Blue)) blueParticleSystem.Stop();
-        
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    mixedColor = taskColors[(int)TaskToDo.None];
-        //    objMaterial.color = mixedColor;
-        //    red.fillAmount = blue.fillAmount = green.fillAmount = inputMarkerFull;
-        //}
-    }
-
-    public void EnableTaskCanvas()
-    {
-        taskInputCanvas.SetActive(true);
     }
 }

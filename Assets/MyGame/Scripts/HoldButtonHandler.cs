@@ -52,7 +52,6 @@ public class HoldButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpH
         if (isPressed)
         {
             objColor.DecreaseFillState(myColor);
-            Debug.Log("my Color: " + myColor + " " + "Decrease");
         }   
     }
 }

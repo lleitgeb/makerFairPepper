@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
 
 public enum PlayMode
@@ -20,11 +19,10 @@ public class Session : MonoBehaviour
 
     [SerializeField] private PepperOnlyTask[] tasks;
     private int maxRounds = 4;
-    private int currentRound = -1;
+    [SerializeField] private int currentRound = -1;
 
     public PepperOnlyTask GetRoundTask(int round)
     {
-        Debug.Log("Round: " + round + " " +tasks[round].name + ", "+ tasks[round].Points);
         return tasks[round];
     }
 
@@ -42,18 +40,7 @@ public class Session : MonoBehaviour
         mode = modus;
 
         tasks = GenerateTaskArray(maxRounds);
-        Debug.Log("Size Array" + tasks.Length);
     }
-
-    //public Session(string name, string zeit, PlayMode modus)
-    //{
-    //    PlayerName = name;
-    //    zeitstempel = zeit;
-    //    mode = modus;
-
-    //    tasks = GenerateTaskArray(maxRounds);
-    //    Debug.Log("Size Array" + tasks.Length);
-    //}
 
     public int SumTaskResults()
     {

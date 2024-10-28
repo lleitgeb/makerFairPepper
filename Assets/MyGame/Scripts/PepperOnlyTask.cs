@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
 
 public enum TaskToDo
 {
@@ -20,7 +16,7 @@ public class PepperOnlyTask : MonoBehaviour
     private ItemData peppersGhostData;
     private Color32[] taskColors;
     private string[] feedback;
-    private float euclidDistance = -1;
+    //private float euclidDistance = -1;
     private string resultFeedback = "";
     public Color32 targetColor = Color.black;
     public Sprite targetSprite;
@@ -37,7 +33,6 @@ public class PepperOnlyTask : MonoBehaviour
         if (peppersGhostData != null)
         {
             Debug.Log("Scriptable Object erfolgreich geladen!");
-            taskColors = peppersGhostData.taskColors;
             feedback = peppersGhostData.feedback;
         }
         else
@@ -116,25 +111,4 @@ public class PepperOnlyTask : MonoBehaviour
 
         return euclidDistance;
     }
-
-    //public Color32 GetTargetColor(TaskToDo task)
-    //{
-    //    switch(task)
-    //    {
-    //        case TaskToDo.Bear: 
-    //            return taskColors[(int)TaskToDo.Bear];
-    //        case TaskToDo.Cat:
-    //            return taskColors[(int)TaskToDo.Cat]; 
-    //        case TaskToDo.Owl:
-    //            return taskColors[(int)TaskToDo.Owl];
-    //        case TaskToDo.One:
-    //            return taskColors[(int)TaskToDo.One];
-    //        case TaskToDo.Two:
-    //            return taskColors[(int)TaskToDo.Two];
-    //        case TaskToDo.Three:
-    //            return taskColors[(int)TaskToDo.Three];
-    //        default:
-    //            return Color.black;
-    //    }
-    //}
 }

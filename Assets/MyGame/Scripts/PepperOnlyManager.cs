@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class PepperOnlyManager : MonoBehaviour
 {
     [SerializeField] private Canvas welcome, auftrag, endscreen;
-    [SerializeField] private TMP_Text playerNameWelcome, playerNameAuftrag;
+    [SerializeField] private TMP_Text playerNameWelcome, playerNameAuftrag, playerNameEnd;
     [SerializeField] private TMP_Text taskPoints;
     [SerializeField] private TMP_Text[] roundPoints;
     [SerializeField] private Image[] roundImgsAuftrag;
@@ -17,10 +18,8 @@ public class PepperOnlyManager : MonoBehaviour
     [SerializeField] private MixObjectColor mixColorObj;
     [SerializeField] private Sprite[] spritesAuftrag;
     [SerializeField] private TMP_Text sumPoints;
-    
-
-    private int round = 0;
-
+    [SerializeField] private Button[] colorMixButtons;
+    [SerializeField] private EventSystem eventSystem;
 
     private Session currentSession;
 
@@ -32,10 +31,9 @@ public class PepperOnlyManager : MonoBehaviour
             if (auftrag.gameObject.activeSelf)
             {
                 auftrag.gameObject.SetActive(false);
-                Debug.Log("Set Auftrag Canvas to false");
             }
-            
         }
+
         welcome.gameObject.SetActive(true);
     }
 
@@ -62,19 +60,29 @@ public class PepperOnlyManager : MonoBehaviour
     {
         currentSession.SetTask((TaskToDo)task);
         auftrag.gameObject.SetActive(false);
+        SetMixColorButtonsInteractable(true);
     }
 
-    public bool IsPlayMode()
+    public void SetMixColorButtonsInteractable(bool active)
     {
-        return !welcome.gameObject.activeSelf && !auftrag.gameObject.activeSelf;
+        for(int i = 0; i < colorMixButtons.Length; i++)
+        {
+            colorMixButtons[i].interactable = active;
+        }
+    }
+
+    public bool IsInTaskMode()
+    {
+        return auftrag.gameObject.activeSelf;
     }
 
     public void EnableTaskCanvas()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         playerNameAuftrag.text = currentSession.PlayerName;
         int currentRound = currentSession.GetCurrentRound();
         roundImgsAuftrag[currentRound].color = Color.white;
-        Debug.Log("enable canvas: !!!! cr " + currentRound);
+
         if(currentRound >= currentSession.MaxRounds-1)
         {
             SetEndScreenInfos();
@@ -84,7 +92,6 @@ public class PepperOnlyManager : MonoBehaviour
         {
             for (int i = 0; i < currentSession.MaxRounds; i++)
             {
-                Debug.Log("poiont: " + i + " " + currentSession.GetRoundTask(i).Points);
                 if (currentSession.GetRoundTask(i).Points == -1) break;
                 roundPoints[i].text = currentSession.GetRoundTask(i).Points.ToString();
             }
@@ -98,6 +105,8 @@ public class PepperOnlyManager : MonoBehaviour
         for (int i = 0; i < currentSession.MaxRounds; i++)
         {
             PepperOnlyTask tmpTask = currentSession.GetRoundTask(i);
+
+            playerNameEnd.text = currentSession.PlayerName;
             
             Sprite taskSprite = tmpTask.targetSprite;
             endSceneTaskImages[i].sprite = taskSprite;
@@ -138,16 +147,6 @@ public class PepperOnlyManager : MonoBehaviour
         sumPoints.text = currentSession.SumTaskResults().ToString();
     }
 
-    public void CollectEndScreenData()
-    {
-        for(int i = 0; i < currentSession.MaxRounds; i++)
-        {
-            Sprite taskSprite = currentSession.GetRoundTask(i).targetSprite;
-            Debug.Log("taskSprite name: " +taskSprite.name);
-            endSceneTaskImages[i].sprite = taskSprite;
-        }
-    }
-
     private void SetUIRoundsUnplayed()
     {
         for(int i = 0; i < roundImgsAuftrag.Length; i++)
@@ -159,33 +158,37 @@ public class PepperOnlyManager : MonoBehaviour
 
     private void ActivateScreen(GameObject objToActivate)
     {
+        Canvas[] allCanvases = { welcome, auftrag, endscreen };
+
         if (objToActivate.gameObject.GetComponent<Canvas>() == null) return;
 
-        welcome.gameObject.SetActive(false);
-        auftrag.gameObject.SetActive(false);
-        endscreen.gameObject.SetActive(false);
+        foreach (Canvas canvas in allCanvases)
+        {
+            canvas.gameObject.SetActive(canvas.gameObject == objToActivate);
+        }
 
-        objToActivate.SetActive(true);
-    }
-
-    public void EnableEndSession()
-    {
-        CollectEndScreenData();
-        ActivateScreen(endscreen.gameObject);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("cur round: " + currentSession.GetCurrentRound());
+            if (IsInTaskMode()) return;
 
-            PepperOnlyTask cptask = currentSession.GetRoundTask(currentSession.GetCurrentRound());
-            cptask.playerColor = mixColorObj.GetPlayerMixedColor();
-            cptask.CalcPoints();
-            EnableTaskCanvas();
-            currentSession.IncreaseRound();
-            mixColorObj.ResetPipeStation();
+            if (currentSession.GetRoundTask(currentSession.GetCurrentRound()).Points == -1)
+            {
+                SetMixColorButtonsInteractable(false);
+                
+                //SetTaskInfos for Task, before Task Canvas access it. 
+                PepperOnlyTask cptask = currentSession.GetRoundTask(currentSession.GetCurrentRound());
+                cptask.playerColor = mixColorObj.GetPlayerMixedColor();
+                cptask.CalcPoints();
+                mixColorObj.ResetPipeStation();
+                
+                EnableTaskCanvas();
+                currentSession.IncreaseRound();
+
+            }
         }
     }
 }

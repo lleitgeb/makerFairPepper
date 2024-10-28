@@ -19,7 +19,6 @@ public class NameGenerator : MonoBehaviour
         string randomAnimal = simpleNames[Random.Range(0, simpleNames.Length)];
         string randomColor = colors[Random.Range(0, colors.Length)];
 
-        Debug.Log(randomColor + " " + randomAnimal);
         return randomColor + " " + randomAnimal;
     }
 }
