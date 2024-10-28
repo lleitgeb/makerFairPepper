@@ -20,6 +20,8 @@ public class PepperOnlyManager : MonoBehaviour
     [SerializeField] private TMP_Text sumPoints;
     [SerializeField] private Button[] colorMixButtons;
     [SerializeField] private EventSystem eventSystem;
+    private GameObject current3DBalloon;
+    
 
     private Session currentSession;
 
@@ -60,6 +62,16 @@ public class PepperOnlyManager : MonoBehaviour
         currentSession.SetTask((TaskToDo)task);
         auftrag.gameObject.SetActive(false);
         SetMixColorButtonsInteractable(true);
+    }
+
+    public void SetCurrentBalloon(GameObject balloon)
+    {
+        current3DBalloon = balloon;
+    }
+
+    public void SetColorToBalloon()
+    {
+        current3DBalloon.GetComponent<Renderer>().material.color = mixColorObj.GetPlayerMixedColor();
     }
 
     public void SetMixColorButtonsInteractable(bool active)
@@ -169,26 +181,30 @@ public class PepperOnlyManager : MonoBehaviour
 
     }
 
+    public void SwitchCanvas()
+    {
+        if (IsInTaskMode()) return;
+
+        if (currentSession.GetRoundTask(currentSession.GetCurrentRound()).points == -1)
+        {
+            SetMixColorButtonsInteractable(false);
+
+            //SetTaskInfos for Task, before Task Canvas access it. 
+            PepperOnlyTask cptask = currentSession.GetRoundTask(currentSession.GetCurrentRound());
+            cptask.playerColor = mixColorObj.GetPlayerMixedColor();
+            cptask.CalcPoints();
+            mixColorObj.ResetPipeStation();
+
+            EnableTaskCanvas();
+            currentSession.IncreaseRound();
+        }
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (IsInTaskMode()) return;
-
-            if (currentSession.GetRoundTask(currentSession.GetCurrentRound()).points == -1)
-            {
-                SetMixColorButtonsInteractable(false);
-                
-                //SetTaskInfos for Task, before Task Canvas access it. 
-                PepperOnlyTask cptask = currentSession.GetRoundTask(currentSession.GetCurrentRound());
-                cptask.playerColor = mixColorObj.GetPlayerMixedColor();
-                cptask.CalcPoints();
-                mixColorObj.ResetPipeStation();
-                
-                EnableTaskCanvas();
-                currentSession.IncreaseRound();
-
-            }
+            SetColorToBalloon();
         }
     }
 }
