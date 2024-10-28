@@ -20,6 +20,7 @@ public class PepperOnlyManager : MonoBehaviour
     [SerializeField] private TMP_Text sumPoints;
     [SerializeField] private Button[] colorMixButtons;
     [SerializeField] private EventSystem eventSystem;
+    [SerializeField] private ParticleSystem colorOnModel;
     private GameObject current3DBalloon;
     
 
@@ -71,7 +72,9 @@ public class PepperOnlyManager : MonoBehaviour
 
     public void SetColorToBalloon()
     {
+        colorOnModel.Play();
         current3DBalloon.GetComponent<Renderer>().material.color = mixColorObj.GetPlayerMixedColor();
+        colorOnModel.Stop();
     }
 
     public void SetMixColorButtonsInteractable(bool active)
