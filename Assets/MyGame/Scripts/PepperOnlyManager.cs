@@ -23,7 +23,6 @@ public class PepperOnlyManager : MonoBehaviour
 
     private Session currentSession;
 
-    // Start is called before the first frame update
     private void Start()
     {
         if(auftrag != null)
@@ -80,6 +79,7 @@ public class PepperOnlyManager : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         playerNameAuftrag.text = currentSession.PlayerName;
+        
         int currentRound = currentSession.GetCurrentRound();
         roundImgsAuftrag[currentRound].color = Color.white;
 

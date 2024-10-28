@@ -33,7 +33,7 @@ public class Liquid : MonoBehaviour
     Vector3 comp;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         GetMeshAndRend();
     }
@@ -43,7 +43,7 @@ public class Liquid : MonoBehaviour
         GetMeshAndRend();
     }
 
-    void GetMeshAndRend()
+    private void GetMeshAndRend()
     {
         if (mesh == null)
         {
@@ -54,7 +54,8 @@ public class Liquid : MonoBehaviour
             rend = GetComponent<Renderer>();
         }
     }
-    void Update()
+
+    private void Update()
     {
         float deltaTime = 0;
         switch (updateMode)
@@ -72,13 +73,9 @@ public class Liquid : MonoBehaviour
 
         if (deltaTime != 0)
         {
-
-
             // decrease wobble over time
             wobbleAmountToAddX = Mathf.Lerp(wobbleAmountToAddX, 0, (deltaTime * Recovery));
             wobbleAmountToAddZ = Mathf.Lerp(wobbleAmountToAddZ, 0, (deltaTime * Recovery));
-
-
 
             // make a sine wave of the decreasing wobble
             pulse = 2 * Mathf.PI * WobbleSpeedMove;
@@ -86,8 +83,6 @@ public class Liquid : MonoBehaviour
 
             wobbleAmountX = wobbleAmountToAddX * sinewave;
             wobbleAmountZ = wobbleAmountToAddZ * sinewave;
-
-
 
             // velocity
             velocity = (lastPos - transform.position) / deltaTime;
@@ -111,9 +106,8 @@ public class Liquid : MonoBehaviour
         lastRot = transform.rotation;
     }
 
-    void UpdatePos(float deltaTime)
+    private void UpdatePos(float deltaTime)
     {
-
         Vector3 worldPos = transform.TransformPoint(new Vector3(mesh.bounds.center.x, mesh.bounds.center.y, mesh.bounds.center.z));
         if (CompensateShapeAmount > 0)
         {
@@ -137,7 +131,7 @@ public class Liquid : MonoBehaviour
     }
 
     //https://forum.unity.com/threads/manually-calculate-angular-velocity-of-gameobject.289462/#post-4302796
-    Vector3 GetAngularVelocity(Quaternion foreLastFrameRotation, Quaternion lastFrameRotation)
+    private Vector3 GetAngularVelocity(Quaternion foreLastFrameRotation, Quaternion lastFrameRotation)
     {
         var q = lastFrameRotation * Quaternion.Inverse(foreLastFrameRotation);
         // no rotation?
@@ -165,8 +159,7 @@ public class Liquid : MonoBehaviour
         }
         return angularVelocity;
     }
-
-    float GetLowestPoint()
+    private float GetLowestPoint()
     {
         float lowestY = float.MaxValue;
         Vector3 lowestVert = Vector3.zero;
@@ -174,7 +167,6 @@ public class Liquid : MonoBehaviour
 
         for (int i = 0; i < vertices.Length; i++)
         {
-
             Vector3 position = transform.TransformPoint(vertices[i]);
 
             if (position.y < lowestY)
