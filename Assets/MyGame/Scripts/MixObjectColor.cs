@@ -7,8 +7,15 @@ public enum ColorRGB
     Blue,
 }
 
+public enum PipeMode
+{
+    Increase,
+    Decrease
+}
+
 public class MixObjectColor : MonoBehaviour
 {
+    [SerializeField] private PipeMode pipeMode;
     private Material objMaterial;
     [SerializeField] private PepperOnlyManager pepperManager;
     [SerializeField] private GameObject kuebelObject;
@@ -18,14 +25,14 @@ public class MixObjectColor : MonoBehaviour
     private ParticleSystem currentParticleSystem;
 
     // Werte für den Eingangsbereich
-    private float inputMarkerFull = -0.34f;  // Voll
-    private float inputMarkerEmpty = 1.63f;   // Leer
+    [SerializeField] private float inputMarkerFull;
+    [SerializeField] private float inputMarkerEmpty;
 
     [SerializeField] private float stepSize;
 
     // Werte für den Ausgangsbereich
-    private float outputMarkerFull = 255f;   // Voll
-    private float outputMarkerEmpty = 0f;     // Leer
+    [SerializeField] private float outputMarkerFull = 255f;   // Voll
+    [SerializeField] private float outputMarkerEmpty = 0f;     // Leer
 
     private Color32 mixedColor = Color.black;
 
@@ -35,20 +42,38 @@ public class MixObjectColor : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        pepperManager = GameObject.FindObjectOfType<PepperOnlyManager>();
         peppersGhostData = Resources.Load<ItemData>("PeppersGhostData");
 
+        if(pipeMode == PipeMode.Decrease)
+        {
+            inputMarkerFull = -0.34f;  // Voll
+            inputMarkerEmpty = 1.63f;   // Leer
+            pepperManager = GameObject.FindObjectOfType<PepperOnlyManager>();
+            currentParticleSystem = null;
+            redParticleSystem.Stop();
+            blueParticleSystem.Stop();
+            greenParticleSystem.Stop();
+        }
+
+        //pepperManager = GameObject.FindObjectOfType<PepperOnlyManager>();
         objMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         mixedColor = new Color32(0, 0, 0, 255);
         objMaterial.color = mixedColor;
         kuebelObject.GetComponent<MeshRenderer>().material = objMaterial;
         
-        currentParticleSystem = null;
-        redParticleSystem.Stop();
-        blueParticleSystem.Stop();
-        greenParticleSystem.Stop();
+        if(pipeMode == PipeMode.Increase)
+        {
+            inputMarkerFull = 0.19f;  // Voll
+            inputMarkerEmpty = 0.79f;   // Leer
+            outputMarkerFull = 0f;   // Voll
+            outputMarkerEmpty = 255f;     // Leer
+            EmptyPipes();
 
-        FillPipes();
+        }
+        else if(pipeMode == PipeMode.Decrease)
+        {
+            FillPipes();
+        }
     }
 
     public Color32 GetPlayerMixedColor()
@@ -155,6 +180,50 @@ public class MixObjectColor : MonoBehaviour
         objMaterial.color = mixedColor;
     }
 
+    public void IncreaseFillState(ColorRGB color)
+    {
+
+        byte r = GetByte((byte)MapRange(red.fillAmount));
+        byte g = GetByte((byte)MapRange(green.fillAmount));
+        byte b = GetByte((byte)MapRange(blue.fillAmount));
+
+        switch (color)
+        {
+            case ColorRGB.Red:
+                if (red.fillAmount >= inputMarkerFull) // Erhöhen nur bis zum Maximum
+                {
+                    red.fillAmount -= stepSize;
+                    Debug.Log("in red: " + red.name + "red.fillAmount: " + red.fillAmount);
+                    int result = 255 - (byte)MapRange(red.fillAmount);
+                    result = Mathf.Clamp(result, 0, 255);
+                    r = (byte)result;
+                }
+                break;
+            case ColorRGB.Blue:
+                if (blue.fillAmount >= inputMarkerFull)
+                {
+                    blue.fillAmount -= stepSize;
+                    int result = 255 - (byte)MapRange(blue.fillAmount);
+                    result = Mathf.Clamp(result, 0, 255);
+                    b = (byte)result;
+                }
+                break;
+            case ColorRGB.Green:
+                if (green.fillAmount >= inputMarkerFull)
+                {
+                    green.fillAmount -= stepSize;
+                    int result = 255 - (byte)MapRange(green.fillAmount);
+                    result = Mathf.Clamp(result, 0, 255);
+                    g = (byte)result;
+                }
+                break;
+        }
+
+        mixedColor = new Color32(r, g, b, 255);
+        objMaterial.color = mixedColor;
+    }
+
+
     public float MapRange(float inputValue)
     {
         return outputMarkerFull + (inputValue - inputMarkerFull) * (outputMarkerEmpty - outputMarkerFull) / (inputMarkerEmpty - inputMarkerFull);
@@ -164,17 +233,35 @@ public class MixObjectColor : MonoBehaviour
     {
         red.fillAmount = blue.fillAmount = green.fillAmount = inputMarkerFull;
     }
+
+    public void EmptyPipes()
+    {
+        red.fillAmount = blue.fillAmount = green.fillAmount = inputMarkerEmpty;
+    }
+
     public void ResetPipeStation()
     {
         mixedColor = peppersGhostData.taskColors[(int)TaskToDo.None];
         objMaterial.color = mixedColor;
-        FillPipes();
+        if (pipeMode == PipeMode.Decrease)
+        {
+            FillPipes();
+        }
+        else if(pipeMode == PipeMode.Increase)
+        {
+            EmptyPipes();
+        }
     }
+
+
 
     private void Update()
     {
-        if (redParticleSystem.isPlaying && PipeEmpty(ColorRGB.Red)) redParticleSystem.Stop();
-        if (greenParticleSystem.isPlaying && PipeEmpty(ColorRGB.Green)) greenParticleSystem.Stop();
-        if (blueParticleSystem.isPlaying && PipeEmpty(ColorRGB.Blue)) blueParticleSystem.Stop();
+        if(pipeMode == PipeMode.Decrease)
+        {
+            if (redParticleSystem.isPlaying && PipeEmpty(ColorRGB.Red)) redParticleSystem.Stop();
+            if (greenParticleSystem.isPlaying && PipeEmpty(ColorRGB.Green)) greenParticleSystem.Stop();
+            if (blueParticleSystem.isPlaying && PipeEmpty(ColorRGB.Blue)) blueParticleSystem.Stop();
+        }
     }
 }
