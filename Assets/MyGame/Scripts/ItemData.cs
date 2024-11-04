@@ -4,6 +4,7 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     public Sprite[] taskSprites;
+    public Department[] departments;
     public Color32[] taskColors = new Color32[]
     {
         new Color32(253, 196, 4, 255), //fdch04 gelb bear

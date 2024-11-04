@@ -253,8 +253,6 @@ public class MixObjectColor : MonoBehaviour
         }
     }
 
-
-
     private void Update()
     {
         if(pipeMode == PipeMode.Decrease)

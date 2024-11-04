@@ -19,6 +19,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9d3fa814495b81948a03a79a50cf43fd, type: 3}
   - {fileID: 21300000, guid: 9e016104400f0d14c90929d537cb3a5a, type: 3}
   - {fileID: 21300000, guid: 6ad30067b22ffe64da4b187d7dfa27e6, type: 3}
+  departments:
+  - {fileID: 11400000, guid: d47b792f39d5afe4fbae9e72c764b36e, type: 2}
+  - {fileID: 11400000, guid: 980076547fa81ba46b6db0fe427f16b4, type: 2}
+  - {fileID: 11400000, guid: f4730b94476268f47bb828aa21229319, type: 2}
+  - {fileID: 11400000, guid: ec21afe5a6cf87041b3dd2f009e021e4, type: 2}
+  - {fileID: 11400000, guid: 853c36e40c32c7045b4707975d1a1f18, type: 2}
+  - {fileID: 11400000, guid: 1ec07ba4db7351b4a9402e05db0d3819, type: 2}
+  - {fileID: 11400000, guid: f79307f3dbd81784eb5f8fe7d18fd0fe, type: 2}
+  - {fileID: 11400000, guid: aa5200dc4582aa54d85d39904bb7dc88, type: 2}
+  - {fileID: 11400000, guid: f79307f3dbd81784eb5f8fe7d18fd0fe, type: 2}
   taskColors:
   - serializedVersion: 2
     rgba: 4278502653
@@ -34,3 +44,9 @@ MonoBehaviour:
     rgba: 4289819283
   - serializedVersion: 2
     rgba: 4278190080
+  feedback:
+  - Maximal unterschiedlich!
+  - Ziemlich unterschiedlich!
+  - "\xC4hnlich, aber erkennbar unterschiedlich!"
+  - "\xC4hnlich, fast nicht zu unterscheiden!"
+  - Die Farben sind komplett identisch!
