@@ -8353,6 +8353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1a8005719fd1c4986e738f81fbe762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pipeMode: 0
   pepperManager: {fileID: 1286853929}
   kuebelObject: {fileID: 1281471232}
   red: {fileID: 1678083216}
@@ -8362,7 +8363,11 @@ MonoBehaviour:
   blueParticleSystem: {fileID: 323127935}
   greenParticleSystem: {fileID: 1357494703}
   taskPoints: {fileID: 0}
+  inputMarkerFull: 0
+  inputMarkerEmpty: 0
   stepSize: 0.003
+  outputMarkerFull: 255
+  outputMarkerEmpty: 0
 --- !u!4 &1061424175
 Transform:
   m_ObjectHideFlags: 0

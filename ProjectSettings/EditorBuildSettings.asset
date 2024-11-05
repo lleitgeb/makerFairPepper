@@ -5,16 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/MyGame/Scenes/ModiDesktop.unity
     guid: 3b35da1c098b12640b0bf0bf2be88484
-  - enabled: 1
+  - enabled: 0
     path: Assets/MyGame/Scenes/PlayerInfoDesktop.unity
     guid: 04458490c02016441a327ce9ee577d7f
-  - enabled: 1
+  - enabled: 0
     path: Assets/MyGame/Scenes/NetworkConnectInfoDesktop.unity
     guid: 4376610b7fb9ecb47856ad004074e119
-  - enabled: 1
+  - enabled: 0
     path: Assets/MyGame/Scenes/TestScene.unity
     guid: c69d95676bb8e944780cecc0bac62003
   m_configObjects:
