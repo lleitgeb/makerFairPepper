@@ -6197,13 +6197,13 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 900.1
-  field of view: 60
+  field of view: 86.7
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 1
@@ -6223,13 +6223,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642449916}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.26311538, y: 0, z: 0, w: 0.96476436}
-  m_LocalPosition: {x: 0, y: 11.1, z: -11}
+  m_LocalRotation: {x: -0.39498436, y: 0, z: 0, w: 0.9186879}
+  m_LocalPosition: {x: -0.1, y: 7, z: -7.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -30.51, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -46.53, y: 0, z: 0}
 --- !u!1 &647476648
 GameObject:
   m_ObjectHideFlags: 0
@@ -16527,7 +16527,7 @@ GameObject:
   - component: {fileID: 1146491448033716210}
   - component: {fileID: 4055206074811000919}
   - component: {fileID: 2279396702556085405}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: smeerws_2018-03-03_09-02-26wal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16775,7 +16775,7 @@ Transform:
   m_GameObject: {fileID: 4879374655602834393}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 22.7, z: 0}
+  m_LocalPosition: {x: 0, y: 13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16850,7 +16850,7 @@ GameObject:
   - component: {fileID: 7089521273731441538}
   - component: {fileID: 8591375902431530578}
   - component: {fileID: 982617212045979171}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16868,7 +16868,7 @@ GameObject:
   - component: {fileID: 8563939460668100990}
   - component: {fileID: 316076579047298678}
   - component: {fileID: 4337105482967517319}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Layer_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16960,7 +16960,7 @@ GameObject:
   - component: {fileID: 4472146764260194869}
   - component: {fileID: 702449790665569680}
   - component: {fileID: 3340383485842669914}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: smeerws_2018-03-04_12-55-20frog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17083,7 +17083,7 @@ GameObject:
   - component: {fileID: 4429686513203063244}
   - component: {fileID: 4591113359260115560}
   - component: {fileID: 4590261882799990916}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shockwave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17101,7 +17101,7 @@ GameObject:
   - component: {fileID: 4424744470917994938}
   - component: {fileID: 4590553154024022548}
   - component: {fileID: 4590078548202417814}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EnergyExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17119,7 +17119,7 @@ GameObject:
   - component: {fileID: 4429420257521611640}
   - component: {fileID: 4591222605814755112}
   - component: {fileID: 4589806922994598670}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17137,7 +17137,7 @@ GameObject:
   - component: {fileID: 4424341771399592194}
   - component: {fileID: 4590969854924440822}
   - component: {fileID: 4590274561856851540}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36637,7 +36637,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5443373397429229871}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: smeerws_2018-03-06_09-16-53hippo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36745,9 +36745,9 @@ Transform:
   m_GameObject: {fileID: 4666133762816656277}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99990875, z: -0, w: 0.013511535}
-  m_LocalPosition: {x: 0, y: 0.19, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.1, y: 4.1, z: 0}
+  m_LocalScale: {x: 1.54, y: 1.54, z: 1.54}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7775103909920560020}
   - {fileID: 8563939460668100990}
@@ -36827,7 +36827,7 @@ GameObject:
   - component: {fileID: 3717544458883343852}
   - component: {fileID: 7037299228795621692}
   - component: {fileID: 4914634514369375713}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37084,7 +37084,7 @@ GameObject:
   - component: {fileID: 7170668143390069482}
   - component: {fileID: 6065380277548916047}
   - component: {fileID: 8343050748994939269}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: smeerws_2018-03-11_07-32-31octopus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37315,7 +37315,7 @@ GameObject:
   - component: {fileID: 7775103909920560020}
   - component: {fileID: 2478760044654523102}
   - component: {fileID: 5893670692990326974}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Layer_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42119,7 +42119,7 @@ Transform:
   m_GameObject: {fileID: 7740319785747000342}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 14.2, z: 0}
+  m_LocalPosition: {x: 0, y: 12, z: 0}
   m_LocalScale: {x: 7.22757, y: 1, z: 8.197204}
   m_ConstrainProportionsScale: 0
   m_Children: []
