@@ -6163,7 +6163,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642449916}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &642449919
 Camera:
   m_ObjectHideFlags: 0
@@ -6206,7 +6206,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
+  m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
@@ -6223,13 +6223,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642449916}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 20.8, z: -10}
+  m_LocalRotation: {x: -0.26311538, y: 0, z: 0, w: 0.96476436}
+  m_LocalPosition: {x: 0, y: 11.1, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -30.51, y: 0, z: 0}
 --- !u!1 &647476648
 GameObject:
   m_ObjectHideFlags: 0
@@ -16775,7 +16775,7 @@ Transform:
   m_GameObject: {fileID: 4879374655602834393}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.2, z: 0}
+  m_LocalPosition: {x: 0, y: 22.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37129,7 +37129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &7745943017386803898
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -42119,7 +42119,7 @@ Transform:
   m_GameObject: {fileID: 7740319785747000342}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10.85, z: 0}
+  m_LocalPosition: {x: 0, y: 14.2, z: 0}
   m_LocalScale: {x: 7.22757, y: 1, z: 8.197204}
   m_ConstrainProportionsScale: 0
   m_Children: []
