@@ -14,6 +14,7 @@ public class ItemData : ScriptableObject
         new Color32(186, 198, 52, 255), //bac634 lime two
         new Color32(147, 114, 177, 255), //fdch04 lila three Elektro
         new Color32(0, 0, 0, 255), //000000 black None
+        new Color32(0, 0, 0, 255), //000000 black None
     };
 
     public string[] feedback = new string[]
