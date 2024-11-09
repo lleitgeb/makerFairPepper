@@ -2,13 +2,14 @@ using UnityEngine;
 
 public enum TaskToDo
 {
-    Bear = 0,
-    Cat = 1,
-    Owl = 2,
-    One = 3,
-    Two = 4,
-    Three = 5,
-    None = 6
+    GrafikMedien = 0,
+    Bautechnik = 1,
+    Maschinenbau = 2,
+    Elektrotechnik = 3,
+    Abendschule = 4,
+    ElektronikTechInfo = 5,
+    None = 6,
+    Informationstechnologie = 7
 }
 
 public class PepperOnlyTask : MonoBehaviour
