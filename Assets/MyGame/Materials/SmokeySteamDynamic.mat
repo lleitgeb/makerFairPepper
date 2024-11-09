@@ -7,12 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SmokeySteam01
+  m_Name: SmokeySteamDynamic
   m_Shader: {fileID: 4800000, guid: b7839dad95683814aa64166edc107ae2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _COLOROVERLAY_ON
   - _FLIPBOOKBLENDING_ON
   m_InvalidKeywords:
   - _ALPHABLEND_ON
@@ -80,7 +81,7 @@ Material:
     - _CameraFadingEnabled: 0
     - _CameraFarFadeDistance: 2
     - _CameraNearFadeDistance: 1
-    - _ColorMode: 0
+    - _ColorMode: 3
     - _Cull: 2
     - _Cutoff: 0.207
     - _DetailNormalMapScale: 1
@@ -115,11 +116,11 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.9787484, g: 0.0990566, b: 1, a: 0.80784315}
-    - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _BaseColor: {r: 0.61960787, g: 0, b: 0, a: 1}
+    - _BaseColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.9787484, g: 0.09905658, b: 1, a: 0.80784315}
-    - _EmissionColor: {r: 0.7169812, g: 0.09807763, b: 0.09807763, a: 1}
+    - _Color: {r: 0.7490196, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0.27302766, b: 0.6226415, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1221115676945820559

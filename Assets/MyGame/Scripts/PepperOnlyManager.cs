@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public class PepperOnlyManager : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class PepperOnlyManager : MonoBehaviour
     [SerializeField] private Button[] colorMixButtons;
     [SerializeField] private EventSystem eventSystem;
     [SerializeField] private ParticleSystem colorOnModel;
+    [SerializeField] private Material materialColorizeObj;
+    [SerializeField] private AudioSource asPaint;
+
     private GameObject current3DBalloon;
     
 
@@ -72,9 +76,9 @@ public class PepperOnlyManager : MonoBehaviour
 
     public void SetColorToBalloon()
     {
-        colorOnModel.Play();
+        colorOnModel.GetComponent<ParticleSystem>().Play();
         current3DBalloon.GetComponent<Renderer>().material.color = mixColorObj.GetPlayerMixedColor();
-        colorOnModel.Stop();
+        //colorOnModel.Stop();
     }
 
     public void SetMixColorButtonsInteractable(bool active)
@@ -207,7 +211,41 @@ public class PepperOnlyManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            SetColorToBalloon();
+            //SetColorToBalloon();
+            materialColorizeObj.color = mixColorObj.GetPlayerMixedColor();
+            StartEffectAndChangeColor();
         }
+    }
+
+    public void StartEffectAndChangeColor()
+    {
+        // Coroutine starten
+        StartCoroutine(PlayEffectAndChangeColor());
+    }
+
+    private IEnumerator PlayEffectAndChangeColor()
+    {
+        if (colorOnModel.GetComponent<ParticleSystem>().isPlaying)
+        {
+            yield break;
+        }
+        else
+        {
+            if (asPaint.isPlaying)
+            {
+                yield break;
+            }
+            asPaint.Play();
+            // Particle Effect abspielen
+            colorOnModel.GetComponent<ParticleSystem>().Play();
+
+            // 2 Sekunden warten
+            yield return new WaitForSeconds(2);
+
+            current3DBalloon.GetComponent<Renderer>().material.color = mixColorObj.GetPlayerMixedColor();
+            colorOnModel.GetComponent<ParticleSystem>().Stop();
+            asPaint.Stop();
+        }
+       
     }
 }
