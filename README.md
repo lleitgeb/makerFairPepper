@@ -5,6 +5,6 @@ Liquid:
 https://www.youtube.com/watch?v=DKSpgFuKeb4
 https://www.patreon.com/posts/fake-liquid-urp-75665057
 
-Dieses READ-ME wurde von Lilian Leitgeb ge�ndert
+Dieses READ-ME wurde von Lilian Leitgeb geändert
 
 Dieses ReadMe wurde geändert von Qun An Lin
